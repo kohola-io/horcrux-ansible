@@ -1,6 +1,13 @@
 ---
+- name: Configure sentries private validator address
+  hosts: sentries
+  tasks:
+    - name: Change private validator address on sentries
+      become: true
+      ansible.builtin.shell: sed -i 's#priv_validator_laddr = ""#priv_validator_laddr = "tcp://0.0.0.0:{{ horcrux_sentry_port }}"#g' {{ sentry_node_home }}/config/config.toml
+
 - name: Configure horcrux state files
-  hosts: '{{ target }}'
+  hosts: signers
   gather_facts: false
   roles:
     - horcrux_statedata

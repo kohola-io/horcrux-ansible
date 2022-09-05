@@ -1,7 +1,7 @@
 ---
 - name: initialize horcrux config (DBG - about to run these commands)
   debug:
-    msg: "{{ horcrux_dir }}/go/bin/horcrux config init {{ lookup('template', 'signer_order.j2') }}"
+    msg: "horcrux config init {{ lookup('template', 'signer_order.j2') }}"
 
 - name: copy horcrux init script
   become: true
@@ -13,12 +13,8 @@
     mode: '0700'
 
 - name: initializing horcrux config actual
-  ansible.builtin.command: sudo su - "{{ horcrux_user }}" -c "{{ horcrux_dir}}/init_horcrux.sh"
+  ansible.builtin.command: sudo su - "{{ horcrux_user }}" -c "{{ horcrux_dir }}/init_horcrux.sh"
   become: true
-
-- name: Generate private keys
-  local_action: ansible.builtin.command make genkeys
-  run_once: True
 
 - name: Copy keys
   become: true

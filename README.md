@@ -79,7 +79,7 @@ $cp priv_validator_key.json keys/
 
 ## Install horcrux
 ```
-ansible-playbook -i inventory_vagrant.yml horcrux.yml  -e "target=horcrux_cluster"
+ansible-playbook -i inventory_vagrant.yml horcrux.yml
 ```
 
 ## Configure horcrux state and start the cluster
@@ -90,7 +90,7 @@ The command below will update the following files in your horcrux cluster:
 * `~/.horcrux/state/{chain-id}_share_sign_state.json`
 
 ```
-ansible-playbook -i inventory_vagrant.yml horcrux_state.yml  -e "target=horcrux_cluster block_height=361402 block_round=0 block_step=3 "
+ansible-playbook -i inventory_vagrant.yml horcrux_state.yml block_height=361402 block_round=0 block_step=3 "
 ```
 
 
@@ -136,7 +136,7 @@ $cp priv_validator_key.json keys/
 This step will create the horcrux user, install the latest version of horcrux, and setup an an initial config based on your inventory file.
 
 ```
-ansible-playbook -i inventory.yml horcrux.yml  -e "target=horcrux_cluster"
+ansible-playbook -i inventory.yml horcrux.yml
 ```
 
 If all goes well you should have your horcrux cluster all setup but not running yet. 
@@ -163,7 +163,7 @@ Next we will will update the following files on each signer node and restart the
 
 Example run:
 ```
-ansible-playbook -i inventory.yml horcrux_state.yml  -e "target=horcrux_cluster block_height=361402 block_round=0 block_step=3 "
+ansible-playbook -i inventory.yml horcrux_state.yml block_height=361402 block_round=0 block_step=3 "
 ```
 
 ### Restart your full nodes

@@ -33,27 +33,20 @@
   become: true
   file:
     owner: '{{ horcrux_user }}'
-    state: absent
+    state: directory
     path: '{{ horcrux_dir }}/horcrux'
 
-- name: Clone horcrux repo
+- name: Unarchive Horcrux
   become: true
-  git:
-    repo: '{{ horcrux_repo }}'
+  ansible.builtin.unarchive:
+    src: '{{ horcrux_url }}'
     dest: '{{ horcrux_dir }}/horcrux'
+    remote_src: yes
+    mode: 0755
 
-- name: Install horcrux
+- name: Move Horcrux
   become: true
-  command: '{{ item }}'
-  args:
-    chdir: '{{ horcrux_dir }}/horcrux'
-  with_items:
-    - 'git fetch'
-    - 'git checkout {{ horcrux_version }}'
-    - 'make install'
-  environment:
-    PATH: '{{ path }}'
-    GOPATH: '{{ horcrux_dir }}/go'
+  command: "mv {{ horcrux_dir }}/horcrux/horcrux /usr/bin/horcrux"
 
 - name: Copy horcrux service file
   become: true

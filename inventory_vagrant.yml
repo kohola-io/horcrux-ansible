@@ -19,40 +19,49 @@ all:
     horcrux_dir: "/home/{{ horcrux_user }}"
     horcrux_signer_port: 2222
     horcrux_sentry_port: 1234
-    horcrux_timeout: '1500ms'
+    horcrux_timeout: '1000ms'
 
-horcrux_cluster:
-  sentries:
-    sentry0:
-      ansible_host: 192.168.0.1
-      ansible_port: 22
-      vpn_ip: 10.0.0.1
-    sentry1:
-      ansible_host: 192.168.0.2
-      ansible_port: 22
-      vpn_ip: 10.0.0.2
-    sentry2:
-      ansible_host: 192.168.0.3
-      ansible_port: 22
-      vpn_ip: 10.0.0.3
-    sentry3:
-      ansible_host: 192.168.0.4
-      ansible_port: 22
-      vpn_ip: 10.0.0.4
+horcrux_signers:
+  children:
+    hosts:
+      signer1:
+        ansible_host: 192.168.0.5
+        ansible_port: 22
+        vpn_ip: 10.0.0.5
+        signorder: 1
+      signer2:
+        ansible_host: 192.168.0.6
+        ansible_port: 22
+        vpn_ip: 10.0.0.6
+        signorder: 2
+      signer3:
+        ansible_host: 192.168.0.8
+        ansible_port: 22
+        vpn_ip: 10.0.0.7
+        signorder: 3
 
-  hosts:
-    signer1:
-      ansible_host: 192.168.0.5
-      ansible_port: 22
-      vpn_ip: 10.0.0.5
-      signorder: 1
-    signer2:
-      ansible_host: 192.168.0.6
-      ansible_port: 22
-      vpn_ip: 10.0.0.6
-      signorder: 2
-    signer3:
-      ansible_host: 192.168.0.8
-      ansible_port: 22
-      vpn_ip: 10.0.0.7
-      signorder: 3
+  horcrux_sentries:
+    hosts:
+      sentry0:
+        ansible_host: 192.168.0.1
+        ansible_port: 22
+        vpn_ip: 10.0.0.1
+      sentry1:
+        ansible_host: 192.168.0.2
+        ansible_port: 22
+        vpn_ip: 10.0.0.2
+      sentry2:
+        ansible_host: 192.168.0.3
+        ansible_port: 22
+        vpn_ip: 10.0.0.3
+      sentry3:
+        ansible_host: 192.168.0.4
+        ansible_port: 22
+        vpn_ip: 10.0.0.4
+
+  current_validator:
+    hosts:
+      sentry0:
+        ansible_host: 192.168.0.1
+        ansible_port: 22
+        vpn_ip: 10.0.0.1
