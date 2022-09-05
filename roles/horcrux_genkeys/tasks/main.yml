@@ -12,3 +12,5 @@
        - "Host:  {{ item.key }} : copying private_share_{{ item.value['signorder'] }}.json and copying it to host {{ item.key }} in ~/.horcrux/share.json"
   loop: "{{ hostvars | dict2items }}"
   delegate_to: localhost
+
+# FUTURE WORK - not yet implemented 
