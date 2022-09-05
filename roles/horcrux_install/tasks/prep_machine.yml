@@ -2,6 +2,8 @@
 - name: Create horcrux user
   ansible.builtin.user:
     name: horcrux
-    password: '!'
+    password: ''
     shell: /bin/false
     append: yes
+    
+# FUTURE WORK - not yet implemented 

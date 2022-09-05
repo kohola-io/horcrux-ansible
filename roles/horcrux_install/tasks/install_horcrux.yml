@@ -3,7 +3,7 @@
   become: true
   ansible.builtin.user:
     name: '{{ horcrux_user }}'
-    password: '!'
+    password: ''
     home: '{{ horcrux_dir }}'
     shell: /bin/bash
 
@@ -30,20 +30,20 @@
     mode: 0755
 
 - name: Create horcrux directory
-  become: yes
+  become: true
   file:
     owner: '{{ horcrux_user }}'
     state: absent
     path: '{{ horcrux_dir }}/horcrux'
 
 - name: Clone horcrux repo
-  become: yes
+  become: true
   git:
     repo: '{{ horcrux_repo }}'
     dest: '{{ horcrux_dir }}/horcrux'
 
 - name: Install horcrux
-  become: yes
+  become: true
   command: '{{ item }}'
   args:
     chdir: '{{ horcrux_dir }}/horcrux'

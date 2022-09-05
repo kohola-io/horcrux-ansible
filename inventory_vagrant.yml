@@ -1,12 +1,12 @@
 ## Example Setup
-#sentry-1: 10.168.0.10
-#sentry-2: 10.168.0.11
-#sentry-3: 10.168.0.12
-#
-#signer-1: 10.168.1.10
-#signer-2: 10.168.1.11
-#signer-3: 10.168.1.12
-#
+# sentry0 vpn_ip=10.0.0.1 ansible_port=22 ansible_host=192.168.0.1
+# sentry1 vpn_ip=10.0.0.2 ansible_port=22 ansible_host=192.168.0.2
+# sentry2 vpn_ip=10.0.0.3 ansible_port=22 ansible_host=192.168.0.3
+# sentry3 vpn_ip=10.0.0.4 ansible_port=22 ansible_host=192.168.0.4
+
+# signer1 vpn_ip=10.0.0.5 ansible_port=22 ansible_host=192.168.0.5
+# signer2 vpn_ip=10.0.0.6 ansible_port=22 ansible_host=192.168.0.6
+# signer3 vpn_ip=10.0.0.7 ansible_port=22 ansible_host=192.168.0.7
 
 all:
   vars:
@@ -14,45 +14,45 @@ all:
     ansible_port: 22    
     ansible_ssh_private_key_file: "~/.vagrant.d/insecure_private_key"
     path: "/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin:{{ horcrux_dir }}/go/bin"
-    horcrux_repo: 'https://github.com/strangelove-ventures/horcrux'
-    horcrux_version: 'v2.0.0-rc1'
-    chain_id: 'chihuahua-1'
+    chain_id: 'kaiyo-1'
     horcrux_user: 'horcrux'
     horcrux_dir: "/home/{{ horcrux_user }}"
-  
+    horcrux_signer_port: 2222
+    horcrux_sentry_port: 1234
+    horcrux_timeout: '1500ms'
 
 horcrux_cluster:
+  sentries:
+    sentry0:
+      ansible_host: 192.168.0.1
+      ansible_port: 22
+      vpn_ip: 10.0.0.1
+    sentry1:
+      ansible_host: 192.168.0.2
+      ansible_port: 22
+      vpn_ip: 10.0.0.2
+    sentry2:
+      ansible_host: 192.168.0.3
+      ansible_port: 22
+      vpn_ip: 10.0.0.3
+    sentry3:
+      ansible_host: 192.168.0.4
+      ansible_port: 22
+      vpn_ip: 10.0.0.4
+
   hosts:
     signer1:
-      ansible_host: 10.168.1.10
-      mysentry: 10.168.0.10
-      me: 10.168.1.10
+      ansible_host: 192.168.0.5
+      ansible_port: 22
+      vpn_ip: 10.0.0.5
       signorder: 1
-      signer1st:
-              order: 2
-              host: 10.168.1.11
-      signer2nd:
-              order: 3
-              host: 10.168.1.12
     signer2:
-      ansible_host: 10.168.1.11
-      mysentry: 10.168.0.11
-      me: 10.168.1.11
+      ansible_host: 192.168.0.6
+      ansible_port: 22
+      vpn_ip: 10.0.0.6
       signorder: 2
-      signer1st:
-              order: 1
-              host: 10.168.1.10
-      signer2nd:
-              order: 3
-              host: 10.168.1.12
     signer3:
-      ansible_host: 10.168.1.12
-      mysentry: 10.168.0.12
+      ansible_host: 192.168.0.8
+      ansible_port: 22
+      vpn_ip: 10.0.0.7
       signorder: 3
-      me: 10.168.1.12
-      signer1st:
-              order: 1
-              host: 10.168.1.10
-      signer2nd:
-              order: 2
-              host: 10.168.1.11

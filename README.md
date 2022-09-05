@@ -1,3 +1,16 @@
+# **WARNING: Until this warning is removed, the state of this repo has not been tested and is likely broken - this notice will be removed after refactoring and test is finished**
+
+# Forked from @CafeValidator
+
+@CafeValidator's great work is the basis for this solution.  We've added additional features:
+- upgrade to released horcrux v2.0.0
+- upgrade to go v1.18.2
+- add flexibility to support 3 signer + n sentry and 5 signer + n sentry solutions
+- connect all signers to all sentries by default
+- make private validator address port configurable in `inventory.yml`
+- make signer communication port configurable in `inventory.yml`
+- implement prepare_sentry logic
+
 # Horcrux install from ansible
 
 
@@ -133,10 +146,10 @@ If all goes well you should have your horcrux cluster all setup but not running 
 update `$NODE_HOME/config/config.toml` and ensure that the following line is present:
 
 ```
-priv_validator_laddr = "tcp://0.0.0.0:1234"
+priv_validator_laddr = "tcp://0.0.0.0:{{ horcrux_sentry_port }}"
 ```
 
-Next ensure that ONLY your signer nodes have access to TCP port 1234. Strongly recommend that you use either a private network or at least a wireguard connection. Verify that the firewall rules are working now.
+Next ensure that ONLY your signer nodes have access to TCP port {{ horcrux_sentry_port }}. Strongly recommend that you use either a private network or at least a wireguard connection. Verify that the firewall rules are working now.
 
 
 ### Stop your validator
