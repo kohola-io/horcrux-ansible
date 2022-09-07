@@ -1,4 +1,14 @@
-# **WARNING: Until this warning is removed, the state of this repo has not been tested and is likely broken - this notice will be removed after refactoring and test is finished**
+# WARNING: the state of this repo has not been fully tested
+
+**horcrux.yml** has been tested on a cluster that has not previously had horcrux installed successfully, but redeployment when horcrux has already been installed needs work.
+
+**horcrux_state.yml** has been tested least and needs the most work
+
+**Vagrant** has not been tested at all
+
+README contents below have not been updated for the tweaked approach to install and deployment present in this repo
+
+**This notice will be removed after refactoring and test is finished**
 
 # Forked from @CafeValidator
 
